@@ -4,7 +4,7 @@ const app = express();
 const fabric = require('fabric').fabric;   
 const fs = require('fs');
 
-
+const Canvas = require('canvas');
 
 
 app.set('view engine', 'ejs');
