@@ -6,7 +6,6 @@ const fs = require('fs');
 
 
 
-console.log('start')
 
 app.set('view engine', 'ejs');
 app.use(express.static('public'));
@@ -14,22 +13,18 @@ app.set('views', path.join(__dirname, 'views'));
 
 app.use(express.json());
 
-console.log('sec step')
 
 app.get('/coords',(req, res) => {
-    console.log("read file")
     fs.readFile('src/data/coords.json','utf-8',(err,data) => {
     if (err){
         console.log("Errro",err);
         res.status(500).send('Error reading at json file');
     }
     const points = JSON.parse(data);
-    console.log(points)
     res.json(points);
 });
 });
 
-console.log('third step')
 
 
 app.post('/updatePoints', (req, res) => {

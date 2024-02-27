@@ -11,7 +11,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
             fabric.Image.fromURL('./images/hand.png', function(img) {
                 // Set the image properties
-                console.log('inside');
                 img.set({
                     left: 0,
                     top: 0,
@@ -120,7 +119,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
         function saveUpdatedPoints(points){
-    console.log('inside save fun',points)
             fetch('/updatePoints', {
                 method: 'POST',
                 headers: {
