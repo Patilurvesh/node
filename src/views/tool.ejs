@@ -14,6 +14,10 @@
 
     <div class="card">
         <canvas id="canvas" style="border: 1px solid #ccc;"></canvas>
+        <div class="download">
+        <button id="downloadButton">Download JSON File</button>
+        </div>
+
     </div>
 <div class="coord" id="coords"></div>
 </body>
@@ -23,14 +27,17 @@
     }
     .card{
         display: flex;
-        /* justify-content: center; */
         align-items: center;
         padding: 30px;
         margin: 10px 400px;
-        height: 800px; /* Set your desired height */
+        height: 800px; 
         background-color:#4a4a4a;
-
-        
+    }
+    .download{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 60px;
     }
 </style>
 </html>

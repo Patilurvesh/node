@@ -2,12 +2,14 @@ document.addEventListener("DOMContentLoaded", function() {
     // Wait for the DOM content to be fully loaded
 
     var canvas = new fabric.Canvas('canvas');
+    var points = []; 
 
     // Fetch the points data from the server
     fetch('/coords')
         .then(response => response.json())
-        .then(points => {
-            // Use the points data obtained from the server
+        .then(initialPoints => {
+            points = initialPoints; 
+
 
             fabric.Image.fromURL('./images/hand.png', function(img) {
                 // Set the image properties
@@ -15,8 +17,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 img.set({
                     left: 0,
                     top: 0,
-                    // scaleX: canvas.width / img.width,
-                    // scaleY: canvas.height / img.height,
+                   
                     selectable: false
                 });
                 canvas.add(img);
@@ -101,18 +102,17 @@ document.addEventListener("DOMContentLoaded", function() {
                     saveUpdatedPoints(points);
 
 
-                    
-                    // Render the canvas after object movement
+                    document.getElementById('downloadButton').addEventListener('click', function() {
+                        downloadPointsJSON(points);
+                    });
+
+
+
+
+
                     canvas.renderAll();
                 });
             });
-
-            function displayPoints(left, top) {
-                let coords = document.getElementById('coords');
-                let x = Math.floor(left);
-                let y = Math.floor(top);
-                coords.innerHTML = x + "   " + y;
-            }
         })
         .catch(error => {
             console.error('Error fetching points:', error);
@@ -139,5 +139,21 @@ document.addEventListener("DOMContentLoaded", function() {
                 console.error('Error updating points:', error);
             });
 
+        }
+
+
+        function downloadPointsJSON(points) {
+            const filename = 'updated_points.json';
+            const jsonStr = JSON.stringify(points, null, 2);
+            const blob = new Blob([jsonStr], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+    
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
         }
 });
