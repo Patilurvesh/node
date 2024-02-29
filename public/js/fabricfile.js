@@ -101,21 +101,16 @@ document.addEventListener("DOMContentLoaded", function() {
                     // displayPoints(updatedValue.x, updatedValue.y);
                     saveUpdatedPoints(points);
 
-
-                    document.getElementById('downloadButton').addEventListener('click', function() {
-                        downloadPointsJSON(points);
-                    });
-
-
-
-
-
                     canvas.renderAll();
                 });
             });
         })
         .catch(error => {
             console.error('Error fetching points:', error);
+        });
+
+        document.getElementById('downloadButton').addEventListener('click', function() {
+            downloadPointsJSON(points);
         });
 
 
@@ -144,7 +139,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
         function downloadPointsJSON(points) {
             const filename = 'updated_points.json';
-            const jsonStr = JSON.stringify(points, null, 2);
+            const jsonStr = JSON.stringify(points, null,2);
             const blob = new Blob([jsonStr], { type: 'application/json' });
             const url = URL.createObjectURL(blob);
     
